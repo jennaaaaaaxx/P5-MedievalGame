@@ -6,10 +6,11 @@ using UnityEngine.UI;
 
 public class Game : MonoBehaviour
 {
-    // Clicker stuff here
+    // Clicker
     [Header("Money")]
     public Text scoreText;
     public float currentScore;
+    public float totalScore;
     public float hitPower;
     public float scoreIncreasedPerSecond;
 
@@ -81,11 +82,32 @@ public class Game : MonoBehaviour
     public int churchUpgradePrice;
     public Text churchUpgradeText;
 
+    // Achievements
+    [Header("Achievements")]
+
+    [Header("Achievements")]
+    public bool achievementScore;
+    public bool achievementHouse;
+    public bool achievementTavern;
+    public bool achievementStable;
+    public bool achievementBakery;
+    public bool achievementChurch;
+    [Header("Achievement Images")]
+    public UnityEngine.UI.Image image1;
+    public UnityEngine.UI.Image image2;
+    public UnityEngine.UI.Image image3;
+    public UnityEngine.UI.Image image4;
+    public UnityEngine.UI.Image image5;
+    public UnityEngine.UI.Image image6;
+
+
+
 
     void Start()
     {
         // Clicker
         currentScore = 0;
+        totalScore = 0;
         hitPower = 1;
         scoreIncreasedPerSecond = 1;
 
@@ -111,6 +133,7 @@ public class Game : MonoBehaviour
 
         // Load
         currentScore = PlayerPrefs.GetInt("currentScore", 0);
+        totalScore = PlayerPrefs.GetInt("totalScore", 0);
         hitPower = PlayerPrefs.GetInt("hitPower", 1);
 
         shop1Price = PlayerPrefs.GetInt("shop1Price", 25);
@@ -140,6 +163,12 @@ public class Game : MonoBehaviour
         stableUpgradePrice = PlayerPrefs.GetInt("stableUpgradePrice", 5000);
         bakeryUpgradePrice = PlayerPrefs.GetInt("bakeryUpgradePrice", 30000);
         churchUpgradePrice = PlayerPrefs.GetInt("churchUpgradePrice", 210000);
+        achievementScore = PlayerPrefs.Equals("achievementScore", false);
+        achievementHouse = PlayerPrefs.Equals("achievementHouse", false);
+        achievementTavern = PlayerPrefs.Equals("achievementTavern", false);
+        achievementStable = PlayerPrefs.Equals("achievementStable", false);
+        achievementBakery = PlayerPrefs.Equals("achievementBakery", false);
+        achievementChurch = PlayerPrefs.Equals("achievementChurch", false);
     }
 
  
@@ -150,6 +179,7 @@ public class Game : MonoBehaviour
         scoreText.text = "£" + (int)currentScore;
         scoreIncreasedPerSecond = (amount1Profit + amount2Profit + amount3Profit + amount4Profit + amount5Profit) * Time.deltaTime;
         currentScore = currentScore + scoreIncreasedPerSecond;
+        totalScore = totalScore + scoreIncreasedPerSecond;
 
         // Shop
         shop1Text.text = "House: £" + shop1Price;
@@ -177,6 +207,7 @@ public class Game : MonoBehaviour
 
         // Save
         PlayerPrefs.SetInt("currentScore", (int)currentScore);
+        PlayerPrefs.SetInt("totalScore", (int)totalScore);
         PlayerPrefs.SetInt("hitPower", (int)hitPower);
 
         PlayerPrefs.SetInt("shop1Price", (int)shop1Price);
@@ -206,12 +237,105 @@ public class Game : MonoBehaviour
         PlayerPrefs.SetInt("stableUpgradePrice", (int)stableUpgradePrice);
         PlayerPrefs.SetInt("bakeryUpgradePrice", (int)bakeryUpgradePrice);
         PlayerPrefs.SetInt("churchUpgradePrice", (int)churchUpgradePrice);
+        PlayerPrefs.Equals("achievementScore", (bool)achievementScore);
+        PlayerPrefs.Equals("achievementHouse", (bool)achievementHouse);
+        PlayerPrefs.Equals("achievementTavern", (bool)achievementTavern);
+        PlayerPrefs.Equals("achievementStable", (bool)achievementStable);
+        PlayerPrefs.Equals("achievementBakery", (bool)achievementBakery);
+        PlayerPrefs.Equals("achievementChurch", (bool)achievementChurch);
+
+        // Achievements
+        if (totalScore >= 1000)
+        {
+            achievementScore = true;
+        }
+        
+        if (achievementScore == true)
+        {
+            image1.color = new Color(0f, 1f, 0.315f, 1f);
+        }
+        else
+        {
+            image1.color = new Color(1f, 0.1f, 0f, 1f);
+        }
+
+        if (amount1 >= 10)
+        {
+            achievementHouse = true;
+        }
+
+        if (achievementHouse == true)
+        {
+            image2.color = new Color(0f, 1f, 0.315f, 1f);
+        }
+        else
+        {
+            image2.color = new Color(1f, 0.1f, 0f, 1f);
+        }
+
+        if (amount2 >= 10)
+        {
+            achievementTavern = true;
+        }
+        
+        if (achievementTavern == true)
+        {
+            image3.color = new Color(0f, 1f, 0.315f, 1f);
+        }
+        else
+        {
+            image3.color = new Color(1f, 0.1f, 0f, 1f);
+        }
+
+        if (amount3 >= 10)
+        {
+            achievementStable = true;
+        }
+        
+        if (achievementStable == true)
+        {
+            image4.color = new Color(0f, 1f, 0.315f, 1f);
+        }
+        else
+        {
+            image4.color = new Color(1f, 0.1f, 0f, 1f);
+        }
+
+        if (amount4 >= 10)
+        {
+            achievementBakery = true;
+        }
+        
+        if (achievementBakery == true)
+        {
+            image5.color = new Color(0f, 1f, 0.315f, 1f);
+        }
+        else
+        {
+            image5.color = new Color(1f, 0.1f, 0f, 1f);
+        }
+
+
+        if (amount5 >= 10)
+        {
+            achievementChurch = true;
+        }
+        
+        if (achievementChurch == true)
+        {
+            image6.color = new Color(0f, 1f, 0.315f, 1f);
+        }
+        else
+        {
+            image6.color = new Color(1f, 0.1f, 0f, 1f);
+        }
     }
 
     // Hit
     public void Hit()
     {
         currentScore += hitPower;
+        totalScore += hitPower;
     }
 
     // Shop

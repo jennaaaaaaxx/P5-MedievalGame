@@ -4,10 +4,12 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
 
+// FIX THE LEVEL MULTIPLIER
+
 public class Game : MonoBehaviour
 {
     // Clicker
-    [Header("Money")]
+    [Header("Clicker")]
     public Text scoreText;
     public float currentScore;
     public float totalScore;
@@ -100,8 +102,20 @@ public class Game : MonoBehaviour
     public UnityEngine.UI.Image image5;
     public UnityEngine.UI.Image image6;
 
+    // Level system
+    [Header("Level System")]
+    public float level;
+    public int xp;
+    public int xpToNextLevel;
+    public float levelMultiplier;
+    public Text levelText;
+    public Text xpToNextLevelText;
+    public Text levelMultiplierText;
 
-
+    // Random events
+    // [Header("Random Events")]
+    // public bool eventIsNow;
+    // public GameObject goldCoin;
 
     void Start()
     {
@@ -127,9 +141,12 @@ public class Game : MonoBehaviour
         amount4Profit = 20f;
         amount5 = 0;
         amount5Profit = 120f;
+        level = 1;
+        xp = 0;
+        xpToNextLevel = 50;
 
         // Reset Lines
-        // PlayerPrefs.DeleteAll();
+        PlayerPrefs.DeleteAll();
 
         // Load
         currentScore = PlayerPrefs.GetInt("currentScore", 0);
@@ -169,6 +186,9 @@ public class Game : MonoBehaviour
         achievementStable = PlayerPrefs.Equals("achievementStable", false);
         achievementBakery = PlayerPrefs.Equals("achievementBakery", false);
         achievementChurch = PlayerPrefs.Equals("achievementChurch", false);
+        level = PlayerPrefs.GetInt("level", 1);
+        xp = PlayerPrefs.GetInt("xp", 0);
+        xpToNextLevel = PlayerPrefs.GetInt("xpToNextLevel", 50);
     }
 
  
@@ -177,7 +197,7 @@ public class Game : MonoBehaviour
 
         // Clicker
         scoreText.text = "£" + (int)currentScore;
-        scoreIncreasedPerSecond = (amount1Profit + amount2Profit + amount3Profit + amount4Profit + amount5Profit) * Time.deltaTime;
+        scoreIncreasedPerSecond = (amount1Profit + amount2Profit + amount3Profit + amount4Profit + amount5Profit) * levelMultiplier * Time.deltaTime;
         currentScore = currentScore + scoreIncreasedPerSecond;
         totalScore = totalScore + scoreIncreasedPerSecond;
 
@@ -189,11 +209,11 @@ public class Game : MonoBehaviour
         shop5Text.text = "Church: £" + shop5Price;
 
         // Amount
-        amount1Text.text = amount1 + " Houses: " + amount1Profit + "£/s";
-        amount2Text.text = amount2 + " Taverns: " + amount2Profit + "£/s";
-        amount3Text.text = amount3 + " Stables: " + amount3Profit + "£/s";
-        amount4Text.text = amount4 + " Bakeries: " + amount4Profit + "£/s";
-        amount5Text.text = amount5 + " Churches: " + amount5Profit + "£/s";
+        amount1Text.text = amount1 + " Houses: £" + amount1Profit + "/s";
+        amount2Text.text = amount2 + " Taverns: £" + amount2Profit + "/s";
+        amount3Text.text = amount3 + " Stables: £" + amount3Profit + "/s";
+        amount4Text.text = amount4 + " Bakeries: £" + amount4Profit + "/s";
+        amount5Text.text = amount5 + " Churches: £" + amount5Profit + "/s";
 
         // Upgrades
         clickUpgradeText.text = "Cost: £" + clickUpgradePrice;
@@ -243,8 +263,13 @@ public class Game : MonoBehaviour
         PlayerPrefs.Equals("achievementStable", (bool)achievementStable);
         PlayerPrefs.Equals("achievementBakery", (bool)achievementBakery);
         PlayerPrefs.Equals("achievementChurch", (bool)achievementChurch);
+        PlayerPrefs.Equals("level", (int)level);
+        PlayerPrefs.Equals("xp", (int)xp);
+        PlayerPrefs.Equals("xpToNextLevel", (int)xpToNextLevel);
 
         // Achievements
+
+        // Total Earnt Achievements
         if (totalScore >= 1000)
         {
             achievementScore = true;
@@ -258,7 +283,7 @@ public class Game : MonoBehaviour
         {
             image1.color = new Color(1f, 0.1f, 0f, 1f);
         }
-
+        // House Achievements
         if (amount1 >= 10)
         {
             achievementHouse = true;
@@ -272,7 +297,7 @@ public class Game : MonoBehaviour
         {
             image2.color = new Color(1f, 0.1f, 0f, 1f);
         }
-
+        // Tavern Achievements
         if (amount2 >= 10)
         {
             achievementTavern = true;
@@ -286,7 +311,7 @@ public class Game : MonoBehaviour
         {
             image3.color = new Color(1f, 0.1f, 0f, 1f);
         }
-
+        // Stable Achievements
         if (amount3 >= 10)
         {
             achievementStable = true;
@@ -300,7 +325,7 @@ public class Game : MonoBehaviour
         {
             image4.color = new Color(1f, 0.1f, 0f, 1f);
         }
-
+        // Bakery Achievements
         if (amount4 >= 10)
         {
             achievementBakery = true;
@@ -314,8 +339,7 @@ public class Game : MonoBehaviour
         {
             image5.color = new Color(1f, 0.1f, 0f, 1f);
         }
-
-
+        // Church Achievements
         if (amount5 >= 10)
         {
             achievementChurch = true;
@@ -329,13 +353,29 @@ public class Game : MonoBehaviour
         {
             image6.color = new Color(1f, 0.1f, 0f, 1f);
         }
+
+        // Level
+        if (xp >= xpToNextLevel)
+        {
+            level++;
+            xp = 0;
+            xpToNextLevel *= 2;
+        }
+
+        levelText.text = "Level " + level;
+        xpToNextLevelText.text = "Xp to next level: " + (xpToNextLevel - xp);
+        levelMultiplier = (1f + ((level - 1f) / 10f));
+        levelMultiplierText.text = "Level multiplier: " + levelMultiplier + "X";
+
+        // Random Events
     }
 
     // Hit
     public void Hit()
     {
-        currentScore += hitPower;
+        currentScore += hitPower * levelMultiplier;
         totalScore += hitPower;
+        xp++;
     }
 
     // Shop

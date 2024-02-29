@@ -4,7 +4,8 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
 
-// FIX THE LEVEL MULTIPLIER
+// FIX THE LEVEL MULTIPLIER (Done?? Bugfix if needed, system finicky at best)
+// Gold coin pos BROKEN
 
 public class Game : MonoBehaviour
 {
@@ -113,9 +114,10 @@ public class Game : MonoBehaviour
     public Text levelMultiplierText;
 
     // Random events
-    // [Header("Random Events")]
-    // public bool eventIsNow;
-    // public GameObject goldCoin;
+    [Header("Random Events")]
+    public bool eventIsNow;
+    public GameObject goldCoin;
+
 
     void Start()
     {
@@ -146,7 +148,7 @@ public class Game : MonoBehaviour
         xpToNextLevel = 50;
 
         // Reset Lines
-        PlayerPrefs.DeleteAll();
+        // PlayerPrefs.DeleteAll();
 
         // Load
         currentScore = PlayerPrefs.GetInt("currentScore", 0);
@@ -194,7 +196,7 @@ public class Game : MonoBehaviour
  
     void Update()
     {
-
+       
         // Clicker
         scoreText.text = "£" + (int)currentScore;
         scoreIncreasedPerSecond = (amount1Profit + amount2Profit + amount3Profit + amount4Profit + amount5Profit) * levelMultiplier * Time.deltaTime;
@@ -209,11 +211,11 @@ public class Game : MonoBehaviour
         shop5Text.text = "Church: £" + shop5Price;
 
         // Amount
-        amount1Text.text = amount1 + " Houses: £" + amount1Profit + "/s";
-        amount2Text.text = amount2 + " Taverns: £" + amount2Profit + "/s";
-        amount3Text.text = amount3 + " Stables: £" + amount3Profit + "/s";
-        amount4Text.text = amount4 + " Bakeries: £" + amount4Profit + "/s";
-        amount5Text.text = amount5 + " Churches: £" + amount5Profit + "/s";
+        amount1Text.text = amount1 + " Houses: £" + (amount1Profit * levelMultiplier) + "/s";
+        amount2Text.text = amount2 + " Taverns: £" + (amount2Profit * levelMultiplier) + "/s";
+        amount3Text.text = amount3 + " Stables: £" + (amount3Profit * levelMultiplier) + "/s";
+        amount4Text.text = amount4 + " Bakeries: £" + (amount4Profit * levelMultiplier) + "/s";
+        amount5Text.text = amount5 + " Churches: £" + (amount5Profit * levelMultiplier) + "/s";
 
         // Upgrades
         clickUpgradeText.text = "Cost: £" + clickUpgradePrice;
@@ -263,9 +265,9 @@ public class Game : MonoBehaviour
         PlayerPrefs.Equals("achievementStable", (bool)achievementStable);
         PlayerPrefs.Equals("achievementBakery", (bool)achievementBakery);
         PlayerPrefs.Equals("achievementChurch", (bool)achievementChurch);
-        PlayerPrefs.Equals("level", (int)level);
-        PlayerPrefs.Equals("xp", (int)xp);
-        PlayerPrefs.Equals("xpToNextLevel", (int)xpToNextLevel);
+        PlayerPrefs.SetInt("level", (int)level);
+        PlayerPrefs.SetInt("xp", (int)xp);
+        PlayerPrefs.SetInt("xpToNextLevel", (int)xpToNextLevel);
 
         // Achievements
 
@@ -368,6 +370,18 @@ public class Game : MonoBehaviour
         levelMultiplierText.text = "Level multiplier: " + levelMultiplier + "X";
 
         // Random Events
+        if(eventIsNow == false && goldCoin.active == true)
+        {
+            goldCoin.SetActive(false);
+            goldCoin.transform.position = new Vector3(UnityEngine.Random.Range(0, 400), UnityEngine.Random.Range(0, 400), 0);
+            StartCoroutine(WaitForEvent());
+        }
+        
+        if(eventIsNow == true && goldCoin.active == false)
+        {
+            goldCoin.transform.position = new Vector3(UnityEngine.Random.Range(0, 400), UnityEngine.Random.Range(0, 400), 0);
+            goldCoin.SetActive(true);
+        }
     }
 
     // Hit
@@ -508,6 +522,32 @@ public class Game : MonoBehaviour
             churchUpgradePrice *= 3;
             amount5Profit *= 2;
             amount5Upgrade *= 2;
+        }
+    }
+
+    // Random Events
+    public void GetReward()
+    {
+        currentScore = currentScore + (((amount1Profit + amount2Profit + amount3Profit + amount4Profit + amount5Profit)
+        * levelMultiplier) * UnityEngine.Random.Range(60, 120));
+        eventIsNow = false;
+        StartCoroutine(WaitForEvent());
+    }
+
+    IEnumerator WaitForEvent()
+    {
+        yield return new WaitForSeconds(150f);
+
+        int x = 0;
+        x = UnityEngine.Random.Range(1,3);
+
+        if (x == 2)
+        {
+            eventIsNow = true;
+        }
+        else
+        {
+            goldCoin.SetActive(true);
         }
     }
 }

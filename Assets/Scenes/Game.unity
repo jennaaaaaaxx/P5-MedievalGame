@@ -3592,7 +3592,6 @@ MonoBehaviour:
   scoreText: {fileID: 1362536446}
   currentScore: 0
   totalScore: 0
-  hitPower: 100
   scoreIncreasedPerSecond: 0
   shop1Price: 25
   shop1Text: {fileID: 354318063}
@@ -3626,7 +3625,7 @@ MonoBehaviour:
   amount5Profit: 0
   allUpgradePrice: 2500
   allUpgradeText: {fileID: 1249493101}
-  clickUpgradePrice: 500
+  clickUpgradePrice: 100
   clickUpgradeText: {fileID: 1934042255}
   houseUpgradePrice: 250
   houseUpgradeText: {fileID: 566238377}
@@ -3659,6 +3658,7 @@ MonoBehaviour:
   levelMultiplierText: {fileID: 170851897}
   eventIsNow: 0
   goldCoin: {fileID: 1711219647}
+  plusObject: {fileID: 5782780157303252440, guid: 55a3e99de65012748be22b9383178f66, type: 3}
 --- !u!1 &736089488
 GameObject:
   m_ObjectHideFlags: 0
@@ -7563,7 +7563,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1711219648
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7582,7 +7582,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -1000}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1711219649

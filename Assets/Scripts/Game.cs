@@ -4,8 +4,7 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
 
-// FIX THE LEVEL MULTIPLIER (Done?? Bugfix if needed, system finicky at best)
-// Gold coin pos BROKEN
+// Everything scripting-wise done, add more buildings, upgrades, achievements >_<
 
 public class Game : MonoBehaviour
 {
@@ -14,7 +13,7 @@ public class Game : MonoBehaviour
     public Text scoreText;
     public float currentScore;
     public float totalScore;
-    public float hitPower;
+    public static float hitPower; // Static
     public float scoreIncreasedPerSecond;
 
     // Shop
@@ -118,6 +117,9 @@ public class Game : MonoBehaviour
     public bool eventIsNow;
     public GameObject goldCoin;
 
+    // Hit
+    [Header("Hit Effect")]
+    public GameObject plusObject;
 
     void Start()
     {
@@ -175,7 +177,7 @@ public class Game : MonoBehaviour
         amount5 = PlayerPrefs.GetInt("amount5", 0);
         amount5Profit = PlayerPrefs.GetFloat("amount5Profit", 0);
         amount5Upgrade = PlayerPrefs.GetInt("amount5Upgrade", 1);
-        clickUpgradePrice = PlayerPrefs.GetInt("clickUpgradePrice", 500);
+        clickUpgradePrice = PlayerPrefs.GetInt("clickUpgradePrice", 100);
         allUpgradePrice = PlayerPrefs.GetInt("allUpgradePrice", 2500);
         houseUpgradePrice = PlayerPrefs.GetInt("houseUpgradePrice", 250);
         tavernUpgradePrice = PlayerPrefs.GetInt("tavernUpgradePrice", 1000);
@@ -382,6 +384,7 @@ public class Game : MonoBehaviour
             goldCoin.transform.position = new Vector3(UnityEngine.Random.Range(0, 400), UnityEngine.Random.Range(0, 400), 0);
             goldCoin.SetActive(true);
         }
+
     }
 
     // Hit
@@ -390,6 +393,9 @@ public class Game : MonoBehaviour
         currentScore += hitPower * levelMultiplier;
         totalScore += hitPower;
         xp++;
+
+        // Text
+        Instantiate(plusObject, transform.position, transform.rotation);
     }
 
     // Shop
@@ -551,3 +557,4 @@ public class Game : MonoBehaviour
         }
     }
 }
+

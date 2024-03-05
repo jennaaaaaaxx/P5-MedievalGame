@@ -1,87 +1,154 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
 
-// Everything scripting-wise done, add more buildings, upgrades, achievements >_<
+// Unsigned 32bit int limit keeps getting reached - NEEDS FIXING ASAP!
 
 public class Game : MonoBehaviour
 {
     // Clicker
     [Header("Clicker")]
-    public Text scoreText;
-    public float currentScore;
-    public float totalScore;
-    public static float hitPower; // Static
-    public float scoreIncreasedPerSecond;
 
+    [Header("Score Text")]
+    public Text scoreText;
+    [Header("Current Score")]
+    public double currentScore;
+    public string currentScoreString;
+    [Header("Total Score")]
+    public double totalScore;
+    public string totalScoreString;
+    [Header("Hitpower")]
+    public static double hitPower; // Static
+    public static string hitPowerString;
+    [Header("Score Increase")]
+    public double scoreIncreasedPerSecond;
+    public string scoreIncreasedPerSecondString;
+ 
     // Shop
     [Header("Shop")]
 
     [Header("House")]
-    public int shop1Price;
+    public double shop1Price;
+    public string shop1PriceString;
     public Text shop1Text;
     [Header("Tavern")]
-    public int shop2Price;
+    public double shop2Price;
+    public string shop2PriceString;
     public Text shop2Text;
     [Header("Stable")]
-    public int shop3Price;
+    public double shop3Price;
+    public string shop3PriceString;
     public Text shop3Text;
     [Header("Bakery")]
-    public int shop4Price;
+    public double shop4Price;
+    public string shop4PriceString;
     public Text shop4Text;
     [Header("Church")]
-    public int shop5Price;
+    public double shop5Price;
+    public string shop5PriceString;
     public Text shop5Text;
 
     // Amounts
-    [Header("Amounts")]
+    public double onesTensHundreds;
+    public double thousands;
+    public double millions;
+    public double billions;
+    public double trillions;
+    public double quadrillons;
+    public double quintrillons;
+    public double sextillons;
+    public double septillons;
+    public double octillions;
+    public double nonillions;
+    public double decillions;
+    public double undecillions;
+    public double duodecillions;
+    public double tredecillions;
+    public double quaddecillions;
+    public double quindecillions;
+    public double sexdecillions;
+    public double septdecillions;
+    public double octodecillions;
+    public double nondecillions;
+
+    // Buildings
+    [Header("Buildings")]
 
     [Header("House")]
-    public int amount1;
+    public Int64 amount1;
     public Text amount1Text;
-    public int amount1Upgrade;
-    public float amount1Profit;
+
+    public double amount1Upgrade;
+    public string amount1UpgradeString;
+
+    public double amount1Profit;
+    public string amount1ProfitString;
     [Header("Tavern")]
-    public int amount2;
+    public Int64 amount2;
     public Text amount2Text;
-    public int amount2Upgrade;
-    public float amount2Profit;
+
+    public double amount2Upgrade;
+    public string amount2UpgradeString;
+
+    public double amount2Profit;
+    public string amount2ProfitString;
     [Header("Stable")]
-    public int amount3;
+    public Int64 amount3;
     public Text amount3Text;
-    public int amount3Upgrade;
-    public float amount3Profit;
+
+    public double amount3Upgrade;
+    public string amount3UpgradeString;
+
+    public double amount3Profit;
+    public string amount3ProfitString;
     [Header("Bakery")]
-    public int amount4;
+    public Int64 amount4;
     public Text amount4Text;
-    public int amount4Upgrade;
-    public float amount4Profit;
+
+    public double amount4Upgrade;
+    public string amount4UpgradeString;
+
+    public double amount4Profit;
+    public string amount4ProfitString;
     [Header("Church")]
-    public int amount5;
+    public Int64 amount5;
     public Text amount5Text;
-    public int amount5Upgrade;
-    public float amount5Profit;
+
+    public double amount5Upgrade;
+    public string amount5UpgradeString;
+
+    public double amount5Profit;
+    public string amount5ProfitString;
 
     // Upgrades
     [Header("Upgrades")]
 
     [Header("Non-building Upgrades")]
-    public int allUpgradePrice;
+    public double allUpgradePrice;
+    public string allUpgradePriceString;
     public Text allUpgradeText;
-    public int clickUpgradePrice;
+    public double clickUpgradePrice;
+    public string clickUpgradePriceString;
     public Text clickUpgradeText;
     [Header("Buildings 1-5 Upgrades")]
-    public int houseUpgradePrice;
+    public double houseUpgradePrice;
+    public string houseUpgradePriceString;
     public Text houseUpgradeText;
-    public int tavernUpgradePrice;
+    public double tavernUpgradePrice;
+    public string tavernUpgradePriceString;
     public Text tavernUpgradeText;
-    public int stableUpgradePrice;
+    public double stableUpgradePrice;
+    public string stableUpgradePriceString;
     public Text stableUpgradeText;
-    public int bakeryUpgradePrice;
+    public double bakeryUpgradePrice;
+    public string bakeryUpgradePriceString;
     public Text bakeryUpgradeText;
-    public int churchUpgradePrice;
+    public double churchUpgradePrice;
+    public string churchUpgradePriceString;
     public Text churchUpgradeText;
 
     // Achievements
@@ -104,10 +171,18 @@ public class Game : MonoBehaviour
 
     // Level system
     [Header("Level System")]
-    public float level;
-    public int xp;
-    public int xpToNextLevel;
-    public float levelMultiplier;
+    public double level;
+    public string levelString;
+
+    public double xp;
+    public string xpString;
+
+    public double xpToNextLevel;
+    public string xpToNextLevelString;
+
+    public double levelMultiplier;
+    public string levelMultiplierString;
+
     public Text levelText;
     public Text xpToNextLevelText;
     public Text levelMultiplierText;
@@ -150,49 +225,68 @@ public class Game : MonoBehaviour
         xpToNextLevel = 50;
 
         // Reset Lines
-        // PlayerPrefs.DeleteAll();
+        PlayerPrefs.DeleteAll();
 
         // Load
-        currentScore = PlayerPrefs.GetInt("currentScore", 0);
-        totalScore = PlayerPrefs.GetInt("totalScore", 0);
-        hitPower = PlayerPrefs.GetInt("hitPower", 1);
 
+        // Clicker
+        currentScore = PlayerPrefs.GetFloat("currentScore", 0);
+        totalScore = PlayerPrefs.GetFloat("totalScore", 0);
+        hitPower = PlayerPrefs.GetFloat("hitPower", 1);
+        
+        // Shop
         shop1Price = PlayerPrefs.GetInt("shop1Price", 25);
         shop2Price = PlayerPrefs.GetInt("shop2Price", 100);
         shop3Price = PlayerPrefs.GetInt("shop3Price", 500);
         shop4Price = PlayerPrefs.GetInt("shop4Price", 3000);
         shop5Price = PlayerPrefs.GetInt("shop5Price", 21000);
+
+        // House
         amount1 = PlayerPrefs.GetInt("amount1", 0);
         amount1Profit = PlayerPrefs.GetFloat("amount1Profit", 0);
-        amount1Upgrade = PlayerPrefs.GetInt("amount1Upgrade", 1);
+        amount1Upgrade = PlayerPrefs.GetFloat("amount1Upgrade", 1);
+
+        // Tavern
         amount2 = PlayerPrefs.GetInt("amount2", 0);
         amount2Profit = PlayerPrefs.GetFloat("amount2Profit", 0);
-        amount2Upgrade = PlayerPrefs.GetInt("amount2Upgrade", 1);
+        amount2Upgrade = PlayerPrefs.GetFloat("amount2Upgrade", 1);
+
+        // Stable
         amount3 = PlayerPrefs.GetInt("amount3", 0);
         amount3Profit = PlayerPrefs.GetFloat("amount3Profit", 0);
-        amount3Upgrade = PlayerPrefs.GetInt("amount3Upgrade", 1);
+        amount3Upgrade = PlayerPrefs.GetFloat("amount3Upgrade", 1);
+
+        // Bakery
         amount4 = PlayerPrefs.GetInt("amount4", 0);
         amount4Profit = PlayerPrefs.GetFloat("amount4Profit", 0);
-        amount4Upgrade = PlayerPrefs.GetInt("amount4Upgrade", 1);
+        amount4Upgrade = PlayerPrefs.GetFloat("amount4Upgrade", 1);
+
+        // Church
         amount5 = PlayerPrefs.GetInt("amount5", 0);
         amount5Profit = PlayerPrefs.GetFloat("amount5Profit", 0);
-        amount5Upgrade = PlayerPrefs.GetInt("amount5Upgrade", 1);
-        clickUpgradePrice = PlayerPrefs.GetInt("clickUpgradePrice", 100);
-        allUpgradePrice = PlayerPrefs.GetInt("allUpgradePrice", 2500);
-        houseUpgradePrice = PlayerPrefs.GetInt("houseUpgradePrice", 250);
-        tavernUpgradePrice = PlayerPrefs.GetInt("tavernUpgradePrice", 1000);
-        stableUpgradePrice = PlayerPrefs.GetInt("stableUpgradePrice", 5000);
-        bakeryUpgradePrice = PlayerPrefs.GetInt("bakeryUpgradePrice", 30000);
-        churchUpgradePrice = PlayerPrefs.GetInt("churchUpgradePrice", 210000);
+        amount5Upgrade = PlayerPrefs.GetFloat("amount5Upgrade", 1);
+
+        // Upgrades
+        clickUpgradePrice = PlayerPrefs.GetFloat("clickUpgradePrice", 100);
+        allUpgradePrice = PlayerPrefs.GetFloat("allUpgradePrice", 2500);
+        houseUpgradePrice = PlayerPrefs.GetFloat("houseUpgradePrice", 250);
+        tavernUpgradePrice = PlayerPrefs.GetFloat("tavernUpgradePrice", 1000);
+        stableUpgradePrice = PlayerPrefs.GetFloat("stableUpgradePrice", 5000);
+        bakeryUpgradePrice = PlayerPrefs.GetFloat("bakeryUpgradePrice", 30000);
+        churchUpgradePrice = PlayerPrefs.GetFloat("churchUpgradePrice", 210000);
+
+        // Achievements
         achievementScore = PlayerPrefs.Equals("achievementScore", false);
         achievementHouse = PlayerPrefs.Equals("achievementHouse", false);
         achievementTavern = PlayerPrefs.Equals("achievementTavern", false);
         achievementStable = PlayerPrefs.Equals("achievementStable", false);
         achievementBakery = PlayerPrefs.Equals("achievementBakery", false);
         achievementChurch = PlayerPrefs.Equals("achievementChurch", false);
-        level = PlayerPrefs.GetInt("level", 1);
-        xp = PlayerPrefs.GetInt("xp", 0);
-        xpToNextLevel = PlayerPrefs.GetInt("xpToNextLevel", 50);
+        
+        // Level
+        level = PlayerPrefs.GetFloat("level", 1);
+        xp = PlayerPrefs.GetFloat("xp", 0);
+        xpToNextLevel = PlayerPrefs.GetFloat("xpToNextLevel", 50);
     }
 
  
@@ -230,46 +324,65 @@ public class Game : MonoBehaviour
         churchUpgradeText.text = "Cost: £" + churchUpgradePrice;
 
         // Save
-        PlayerPrefs.SetInt("currentScore", (int)currentScore);
-        PlayerPrefs.SetInt("totalScore", (int)totalScore);
-        PlayerPrefs.SetInt("hitPower", (int)hitPower);
 
+        // Clicker
+        PlayerPrefs.SetFloat("currentScore", (float)currentScore);
+        PlayerPrefs.SetFloat("totalScore", (int)totalScore);
+        PlayerPrefs.SetFloat("hitPower", (int)hitPower);
+
+        // Shop
         PlayerPrefs.SetInt("shop1Price", (int)shop1Price);
         PlayerPrefs.SetInt("shop2Price", (int)shop2Price);
         PlayerPrefs.SetInt("shop3Price", (int)shop3Price);
         PlayerPrefs.SetInt("shop4Price", (int)shop4Price);
         PlayerPrefs.SetInt("shop5Price", (int)shop5Price);
+
+        // House
         PlayerPrefs.SetInt("amount1", (int)amount1);
         PlayerPrefs.SetFloat("amount1Profit", (float)amount1Profit);
-        PlayerPrefs.SetInt("amount1Upgrade", (int)amount1Upgrade);
+        PlayerPrefs.SetFloat("amount1Upgrade", (int)amount1Upgrade);
+
+        // Tavern
         PlayerPrefs.SetInt("amount2", (int)amount2);
         PlayerPrefs.SetFloat("amount2Profit", (float)amount2Profit);
-        PlayerPrefs.SetInt("amount2Upgrade", (int)amount2Upgrade);
+        PlayerPrefs.SetFloat("amount2Upgrade", (int)amount2Upgrade);
+
+        // Stable
         PlayerPrefs.SetInt("amount3", (int)amount3);
         PlayerPrefs.SetFloat("amount3Profit", (float)amount3Profit);
-        PlayerPrefs.SetInt("amount3Upgrade", (int)amount3Upgrade);
+        PlayerPrefs.SetFloat("amount3Upgrade", (int)amount3Upgrade);
+
+        // Bakery
         PlayerPrefs.SetInt("amount4", (int)amount4);
         PlayerPrefs.SetFloat("amount4Profit", (float)amount4Profit);
-        PlayerPrefs.SetInt("amount4Upgrade", (int)amount4Upgrade);
+        PlayerPrefs.SetFloat("amount4Upgrade", (int)amount4Upgrade);
+
+        // Church
         PlayerPrefs.SetInt("amount5", (int)amount5);
         PlayerPrefs.SetFloat("amount5Profit", (float)amount5Profit);
-        PlayerPrefs.SetInt("amount5Upgrade", (int)amount5Upgrade);
-        PlayerPrefs.SetInt("clickUpgradePrice", (int)clickUpgradePrice);
-        PlayerPrefs.SetInt("allUpgradePrice", (int)allUpgradePrice);
-        PlayerPrefs.SetInt("houseUpgradePrice", (int)houseUpgradePrice);
-        PlayerPrefs.SetInt("tavernUpgradePrice", (int)tavernUpgradePrice);
-        PlayerPrefs.SetInt("stableUpgradePrice", (int)stableUpgradePrice);
-        PlayerPrefs.SetInt("bakeryUpgradePrice", (int)bakeryUpgradePrice);
-        PlayerPrefs.SetInt("churchUpgradePrice", (int)churchUpgradePrice);
+        PlayerPrefs.SetFloat("amount5Upgrade", (int)amount5Upgrade);
+
+        // Upgrades
+        PlayerPrefs.SetFloat("clickUpgradePrice", (int)clickUpgradePrice);
+        PlayerPrefs.SetFloat("allUpgradePrice", (int)allUpgradePrice);
+        PlayerPrefs.SetFloat("houseUpgradePrice", (int)houseUpgradePrice);
+        PlayerPrefs.SetFloat("tavernUpgradePrice", (int)tavernUpgradePrice);
+        PlayerPrefs.SetFloat("stableUpgradePrice", (int)stableUpgradePrice);
+        PlayerPrefs.SetFloat("bakeryUpgradePrice", (int)bakeryUpgradePrice);
+        PlayerPrefs.SetFloat("churchUpgradePrice", (int)churchUpgradePrice);
+
+        // Achievements
         PlayerPrefs.Equals("achievementScore", (bool)achievementScore);
         PlayerPrefs.Equals("achievementHouse", (bool)achievementHouse);
         PlayerPrefs.Equals("achievementTavern", (bool)achievementTavern);
         PlayerPrefs.Equals("achievementStable", (bool)achievementStable);
         PlayerPrefs.Equals("achievementBakery", (bool)achievementBakery);
         PlayerPrefs.Equals("achievementChurch", (bool)achievementChurch);
-        PlayerPrefs.SetInt("level", (int)level);
-        PlayerPrefs.SetInt("xp", (int)xp);
-        PlayerPrefs.SetInt("xpToNextLevel", (int)xpToNextLevel);
+
+        // Level
+        PlayerPrefs.SetFloat("level", (int)level);
+        PlayerPrefs.SetFloat("xp", (int)xp);
+        PlayerPrefs.SetFloat("xpToNextLevel", (int)xpToNextLevel);
 
         // Achievements
 
@@ -375,16 +488,38 @@ public class Game : MonoBehaviour
         if(eventIsNow == false && goldCoin.active == true)
         {
             goldCoin.SetActive(false);
-            goldCoin.transform.position = new Vector3(UnityEngine.Random.Range(0, 400), UnityEngine.Random.Range(0, 400), 0);
+            goldCoin.transform.position = new UnityEngine.Vector3(UnityEngine.Random.Range(0, 400), UnityEngine.Random.Range(0, 400), 0);
             StartCoroutine(WaitForEvent());
         }
         
         if(eventIsNow == true && goldCoin.active == false)
         {
-            goldCoin.transform.position = new Vector3(UnityEngine.Random.Range(0, 400), UnityEngine.Random.Range(0, 400), 0);
+            goldCoin.transform.position = new UnityEngine.Vector3(UnityEngine.Random.Range(0, 400), UnityEngine.Random.Range(0, 400), 0);
             goldCoin.SetActive(true);
         }
 
+
+        // Test
+        onesTensHundreds = onesTensHundreds + scoreIncreasedPerSecond;
+        
+        if (onesTensHundreds >= 1000)
+        {
+            thousands++;
+            onesTensHundreds = 0;
+        }
+        
+
+        if (thousands >= 1000)
+        {
+            millions++;
+            thousands = 0;
+       
+        }
+        if (millions >= 1000)
+        {
+            billions++;
+            millions = 0;
+        }
     }
 
     // Hit

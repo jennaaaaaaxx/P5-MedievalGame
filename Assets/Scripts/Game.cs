@@ -7,73 +7,373 @@ using UnityEngine;
 using UnityEngine.UI;
 
 // Unsigned 32bit int limit keeps getting reached - NEEDS FIXING ASAP!
+// Fix in the works fingers crossed :3
 
 public class Game : MonoBehaviour
 {
     // Clicker
     [Header("Clicker")]
-
-    [Header("Score Text")]
     public Text scoreText;
     [Header("Current Score")]
     public double currentScore;
-    public string currentScoreString;
+    [Header("Current Ones - Nonillions")]
+    public double currentOnesTensHundreds;
+    public double currentThousands;
+    public double currentMillions;
+    public double currentBillions;
+    public double currentTrillions;
+    public double currentQuadrillons;
+    public double currentQuintrillons;
+    public double currentSextillons;
+    public double currentSeptillons;
+    public double currentOctillions;
+    public double currentNonillions;
+    [Header("Current Decillions")]
+    public double currentDecillions;
+    public double currentUndecillions;
+    public double currentDuodecillions;
+    public double currentTredecillions;
+    public double currentQuaddecillions;
+    public double currentQuindecillions;
+    public double currentSexdecillions;
+    public double currentSeptdecillions;
+    public double currentOctodecillions;
+    public double currentNovemdecillions;
+    [Header("Current Vigintillions")]
+    public double currentVigintillions;
+    public double currentDuovigintillions;
+    public double currentTresvigintillions;
+    public double currentQuattorvigintillions;
+    public double currentQuinvigintillions;
+    public double currentSexvigintillions;
+    public double currentSeptenvigintillions;
+    public double currentOctovigintillions;
+    public double currentNovemvigintillions;
+
     [Header("Total Score")]
     public double totalScore;
-    public string totalScoreString;
-    [Header("Hitpower")]
-    public static double hitPower; // Static
-    public static string hitPowerString;
+    [Header("Total Ones - Nonillions")]
+    public double totalOnesTensHundreds;
+    public double totalThousands;
+    public double totalMillions;
+    public double totalBillions;
+    public double totalTrillions;
+    public double totalQuadrillons;
+    public double totalQuintrillons;
+    public double totalSextillons;
+    public double totalSeptillons;
+    public double totalOctillions;
+    public double totalNonillions;
+    [Header("Total Decillions")]
+    public double totalDecillions;
+    public double totalUndecillions;
+    public double totalDuodecillions;
+    public double totalTredecillions;
+    public double totalQuaddecillions;
+    public double totalQuindecillions;
+    public double totalSexdecillions;
+    public double totalSeptdecillions;
+    public double totalOctodecillions;
+    public double totalNovemdecillions;
+    [Header("Total Vigintillions")]
+    public double totalVigintillions;
+    public double totalDuovigintillions;
+    public double totalTresvigintillions;
+    public double totalQuattorvigintillions;
+    public double totalQuinvigintillions;
+    public double totalSexvigintillions;
+    public double totalSeptenvigintillions;
+    public double totalOctovigintillions;
+    public double totalNovemvigintillions;
+
+    [Header("Hitpower")] // KEEP THESE AS STATICS
+    public static double hitPower;
+    [Header("Hitpower Ones - Nonillions")]
+    public static double hitpowerOnesTensHundreds;
+    public static double hitpowerThousands;
+    public static double hitpowerMillions;
+    public static double hitpowerBillions;
+    public static double hitpowerTrillions;
+    public static double hitpowerQuadrillons;
+    public static double hitpowerQuintrillons;
+    public static double hitpowerSextillons;
+    public static double hitpowerSeptillons;
+    public static double hitpowerOctillions;
+    public static double hitpowerNonillions;
+    [Header("Hitpower Decillions")]
+    public static double hitpowerDecillions;
+    public static double hitpowerUndecillions;
+    public static double hitpowerDuodecillions;
+    public static double hitpowerTredecillions;
+    public static double hitpowerQuaddecillions;
+    public static double hitpowerQuindecillions;
+    public static double hitpowerSexdecillions;
+    public static double hitpowerSeptdecillions;
+    public static double hitpowerOctodecillions;
+    public static double hitpowerNovemdecillions;
+    [Header("Hitpower Vigintillions")]
+    public static double hitpowerVigintillions;
+    public static double hitpowerDuovigintillions;
+    public static double hitpowerTresvigintillions;
+    public static double hitpowerQuattorvigintillions;
+    public static double hitpowerQuinvigintillions;
+    public static double hitpowerSexvigintillions;
+    public static double hitpowerSeptenvigintillions;
+    public static double hitpowerOctovigintillions;
+    public static double hitpowerNovemvigintillions;
     [Header("Score Increase")]
     public double scoreIncreasedPerSecond;
-    public string scoreIncreasedPerSecondString;
- 
+    [Header("Increase Ones - Nonillions")]
+    public double increaseOnesTensHundreds;
+    public double increaseThousands;
+    public double increaseMillions;
+    public double increaseBillions;
+    public double increaseTrillions;
+    public double increaseQuadrillons;
+    public double increaseQuintrillons;
+    public double increaseSextillons;
+    public double increaseSeptillons;
+    public double increaseOctillions;
+    public double increaseNonillions;
+    [Header("Increase Decillions")]
+    public double increaseDecillions;
+    public double increaseUndecillions;
+    public double increaseDuodecillions;
+    public double increaseTredecillions;
+    public double increaseQuaddecillions;
+    public double increaseQuindecillions;
+    public double increaseSexdecillions;
+    public double increaseSeptdecillions;
+    public double increaseOctodecillions;
+    public double increaseNovemdecillions;
+    [Header("Increase Vigintillions")]
+    public double increaseVigintillions;
+    public double increaseDuovigintillions;
+    public double increaseTresvigintillions;
+    public double increaseQuattorvigintillions;
+    public double increaseQuinvigintillions;
+    public double increaseSexvigintillions;
+    public double increaseSeptenvigintillions;
+    public double increaseOctovigintillions;
+    public double increaseNovemvigintillions;
+
     // Shop
     [Header("Shop")]
 
     [Header("House")]
-    public double shop1Price;
-    public string shop1PriceString;
     public Text shop1Text;
+    
+    [Header("House Cost")]
+    public double shop1Price;
+    
+    [Header("House Ones - Nonillions")]
+    public double shop1CostOnesTensHundreds;
+    public double shop1CostThousands;
+    public double shop1CostMillions;
+    public double shop1CostBillions;
+    public double shop1CostTrillions;
+    public double shop1CostQuadrillons;
+    public double shop1CostQuintrillons;
+    public double shop1CostSextillons;
+    public double shop1CostSeptillons;
+    public double shop1CostOctillions;
+    public double shop1CostNonillions;
+    
+    [Header("House Decillions")]
+    public double shop1CostDecillions;
+    public double shop1CostUndecillions;
+    public double shop1CostDuodecillions;
+    public double shop1CostTredecillions;
+    public double shop1CostQuaddecillions;
+    public double shop1CostQuindecillions;
+    public double shop1CostSexdecillions;
+    public double shop1CostSeptdecillions;
+    public double shop1CostOctodecillions;
+    public double shop1CostNovemdecillions;
+    
+    [Header("House Vigintillions")]
+    public double shop1CostVigintillions;
+    public double shop1CostDuovigintillions;
+    public double shop1CostTresvigintillions;
+    public double shop1CostQuattorvigintillions;
+    public double shop1CostQuinvigintillions;
+    public double shop1CostSexvigintillions;
+    public double shop1CostSeptenvigintillions;
+    public double shop1CostOctovigintillions;
+    public double shop1CostNovemvigintillions;
+
+
     [Header("Tavern")]
-    public double shop2Price;
-    public string shop2PriceString;
     public Text shop2Text;
+
+    [Header("Tavern Cost")]
+    public double shop2Price;
+
+    [Header("Tavern Ones - Nonillions")]
+    public double shop2CostOnesTensHundreds;
+    public double shop2CostThousands;
+    public double shop2CostMillions;
+    public double shop2CostBillions;
+    public double shop2CostTrillions;
+    public double shop2CostQuadrillons;
+    public double shop2CostQuintrillons;
+    public double shop2CostSextillons;
+    public double shop2CostSeptillons;
+    public double shop2CostOctillions;
+    public double shop2CostNonillions;
+
+    [Header("Tavern Decillions")]
+    public double shop2CostDecillions;
+    public double shop2CostUndecillions;
+    public double shop2CostDuodecillions;
+    public double shop2CostTredecillions;
+    public double shop2CostQuaddecillions;
+    public double shop2CostQuindecillions;
+    public double shop2CostSexdecillions;
+    public double shop2CostSeptdecillions;
+    public double shop2CostOctodecillions;
+    public double shop2CostNovemdecillions;
+
+    [Header("Tavern Vigintillions")]
+    public double shop2CostVigintillions;
+    public double shop2CostDuovigintillions;
+    public double shop2CostTresvigintillions;
+    public double shop2CostQuattorvigintillions;
+    public double shop2CostQuinvigintillions;
+    public double shop2CostSexvigintillions;
+    public double shop2CostSeptenvigintillions;
+    public double shop2CostOctovigintillions;
+    public double shop2CostNovemvigintillions;
+
+
     [Header("Stable")]
-    public double shop3Price;
-    public string shop3PriceString;
     public Text shop3Text;
+
+    [Header("Stable Cost")]
+    public double shop3Price;
+
+    [Header("Stable Ones - Nonillions")]
+    public double shop3CostOnesTensHundreds;
+    public double shop3CostThousands;
+    public double shop3CostMillions;
+    public double shop3CostBillions;
+    public double shop3CostTrillions;
+    public double shop3CostQuadrillons;
+    public double shop3CostQuintrillons;
+    public double shop3CostSextillons;
+    public double shop3CostSeptillons;
+    public double shop3CostOctillions;
+    public double shop3CostNonillions;
+
+    [Header("Stable Decillions")]
+    public double shop3CostDecillions;
+    public double shop3CostUndecillions;
+    public double shop3CostDuodecillions;
+    public double shop3CostTredecillions;
+    public double shop3CostQuaddecillions;
+    public double shop3CostQuindecillions;
+    public double shop3CostSexdecillions;
+    public double shop3CostSeptdecillions;
+    public double shop3CostOctodecillions;
+    public double shop3CostNovemdecillions;
+
+    [Header("Stable Vigintillions")]
+    public double shop3CostVigintillions;
+    public double shop3CostDuovigintillions;
+    public double shop3CostTresvigintillions;
+    public double shop3CostQuattorvigintillions;
+    public double shop3CostQuinvigintillions;
+    public double shop3CostSexvigintillions;
+    public double shop3CostSeptenvigintillions;
+    public double shop3CostOctovigintillions;
+    public double shop3CostNovemvigintillions;
+
+
     [Header("Bakery")]
-    public double shop4Price;
-    public string shop4PriceString;
     public Text shop4Text;
+
+    [Header("Bakery Cost")]
+    public double shop4Price;
+
+    [Header("Bakery Ones - Nonillions")]
+    public double shop4CostOnesTensHundreds;
+    public double shop4CostThousands;
+    public double shop4CostMillions;
+    public double shop4CostBillions;
+    public double shop4CostTrillions;
+    public double shop4CostQuadrillons;
+    public double shop4CostQuintrillons;
+    public double shop4CostSextillons;
+    public double shop4CostSeptillons;
+    public double shop4CostOctillions;
+    public double shop4CostNonillions;
+
+    [Header("Bakery Decillions")]
+    public double shop4CostDecillions;
+    public double shop4CostUndecillions;
+    public double shop4CostDuodecillions;
+    public double shop4CostTredecillions;
+    public double shop4CostQuaddecillions;
+    public double shop4CostQuindecillions;
+    public double shop4CostSexdecillions;
+    public double shop4CostSeptdecillions;
+    public double shop4CostOctodecillions;
+    public double shop4CostNovemdecillions;
+
+    [Header("Bakery Vigintillions")]
+    public double shop4CostVigintillions;
+    public double shop4CostDuovigintillions;
+    public double shop4CostTresvigintillions;
+    public double shop4CostQuattorvigintillions;
+    public double shop4CostQuinvigintillions;
+    public double shop4CostSexvigintillions;
+    public double shop4CostSeptenvigintillions;
+    public double shop4CostOctovigintillions;
+    public double shop4CostNovemvigintillions;
+
+
     [Header("Church")]
-    public double shop5Price;
-    public string shop5PriceString;
     public Text shop5Text;
 
-    // Amounts
-    public double onesTensHundreds;
-    public double thousands;
-    public double millions;
-    public double billions;
-    public double trillions;
-    public double quadrillons;
-    public double quintrillons;
-    public double sextillons;
-    public double septillons;
-    public double octillions;
-    public double nonillions;
-    public double decillions;
-    public double undecillions;
-    public double duodecillions;
-    public double tredecillions;
-    public double quaddecillions;
-    public double quindecillions;
-    public double sexdecillions;
-    public double septdecillions;
-    public double octodecillions;
-    public double nondecillions;
+    [Header("Church Cost")]
+    public double shop5Price;
+
+    [Header("Church Ones - Nonillions")]
+    public double shop5CostOnesTensHundreds;
+    public double shop5CostThousands;
+    public double shop5CostMillions;
+    public double shop5CostBillions;
+    public double shop5CostTrillions;
+    public double shop5CostQuadrillons;
+    public double shop5CostQuintrillons;
+    public double shop5CostSextillons;
+    public double shop5CostSeptillons;
+    public double shop5CostOctillions;
+    public double shop5CostNonillions;
+
+    [Header("Church Decillions")]
+    public double shop5CostDecillions;
+    public double shop5CostUndecillions;
+    public double shop5CostDuodecillions;
+    public double shop5CostTredecillions;
+    public double shop5CostQuaddecillions;
+    public double shop5CostQuindecillions;
+    public double shop5CostSexdecillions;
+    public double shop5CostSeptdecillions;
+    public double shop5CostOctodecillions;
+    public double shop5CostNovemdecillions;
+
+    [Header("Church Vigintillions")]
+    public double shop5CostVigintillions;
+    public double shop5CostDuovigintillions;
+    public double shop5CostTresvigintillions;
+    public double shop5CostQuattorvigintillions;
+    public double shop5CostQuinvigintillions;
+    public double shop5CostSexvigintillions;
+    public double shop5CostSeptenvigintillions;
+    public double shop5CostOctovigintillions;
+    public double shop5CostNovemvigintillions;
+
 
     // Buildings
     [Header("Buildings")]
@@ -83,83 +383,66 @@ public class Game : MonoBehaviour
     public Text amount1Text;
 
     public double amount1Upgrade;
-    public string amount1UpgradeString;
-
     public double amount1Profit;
-    public string amount1ProfitString;
     [Header("Tavern")]
     public Int64 amount2;
     public Text amount2Text;
 
     public double amount2Upgrade;
-    public string amount2UpgradeString;
-
     public double amount2Profit;
-    public string amount2ProfitString;
     [Header("Stable")]
     public Int64 amount3;
     public Text amount3Text;
 
     public double amount3Upgrade;
-    public string amount3UpgradeString;
-
     public double amount3Profit;
-    public string amount3ProfitString;
     [Header("Bakery")]
     public Int64 amount4;
     public Text amount4Text;
 
     public double amount4Upgrade;
-    public string amount4UpgradeString;
-
     public double amount4Profit;
-    public string amount4ProfitString;
     [Header("Church")]
     public Int64 amount5;
     public Text amount5Text;
 
     public double amount5Upgrade;
-    public string amount5UpgradeString;
-
     public double amount5Profit;
-    public string amount5ProfitString;
 
     // Upgrades
     [Header("Upgrades")]
 
     [Header("Non-building Upgrades")]
     public double allUpgradePrice;
-    public string allUpgradePriceString;
     public Text allUpgradeText;
     public double clickUpgradePrice;
-    public string clickUpgradePriceString;
     public Text clickUpgradeText;
     [Header("Buildings 1-5 Upgrades")]
     public double houseUpgradePrice;
-    public string houseUpgradePriceString;
     public Text houseUpgradeText;
     public double tavernUpgradePrice;
-    public string tavernUpgradePriceString;
     public Text tavernUpgradeText;
     public double stableUpgradePrice;
-    public string stableUpgradePriceString;
     public Text stableUpgradeText;
     public double bakeryUpgradePrice;
-    public string bakeryUpgradePriceString;
     public Text bakeryUpgradeText;
     public double churchUpgradePrice;
-    public string churchUpgradePriceString;
     public Text churchUpgradeText;
 
     // Achievements
     [Header("Achievements")]
 
-    [Header("Achievements")]
+    [Header("Score Achievements")]
     public bool achievementScore;
+    [Header("House Achievements")]
     public bool achievementHouse;
+    [Header("Tavern Achievements")]
     public bool achievementTavern;
+    [Header("Stable Achievements")]
     public bool achievementStable;
+    [Header("Bakery Achievements")]
     public bool achievementBakery;
+    [Header("Church Achievements")]
     public bool achievementChurch;
     [Header("Achievement Images")]
     public UnityEngine.UI.Image image1;
@@ -230,8 +513,14 @@ public class Game : MonoBehaviour
         // Load
 
         // Clicker
+
+        // Current Score
         currentScore = PlayerPrefs.GetFloat("currentScore", 0);
+
+        // Total Score
         totalScore = PlayerPrefs.GetFloat("totalScore", 0);
+        
+        // Hitpower
         hitPower = PlayerPrefs.GetFloat("hitPower", 1);
         
         // Shop
@@ -298,6 +587,11 @@ public class Game : MonoBehaviour
         scoreIncreasedPerSecond = (amount1Profit + amount2Profit + amount3Profit + amount4Profit + amount5Profit) * levelMultiplier * Time.deltaTime;
         currentScore = currentScore + scoreIncreasedPerSecond;
         totalScore = totalScore + scoreIncreasedPerSecond;
+
+        // Test
+        increaseOnesTensHundreds = (amount1Profit + amount2Profit + amount3Profit + amount4Profit + amount5Profit) * levelMultiplier * Time.deltaTime;
+        currentOnesTensHundreds = currentOnesTensHundreds + increaseOnesTensHundreds;
+        totalOnesTensHundreds = totalOnesTensHundreds + increaseOnesTensHundreds;
 
         // Shop
         shop1Text.text = "House: £" + shop1Price;
@@ -500,25 +794,25 @@ public class Game : MonoBehaviour
 
 
         // Test
-        onesTensHundreds = onesTensHundreds + scoreIncreasedPerSecond;
+        totalOnesTensHundreds = totalOnesTensHundreds + scoreIncreasedPerSecond;
         
-        if (onesTensHundreds >= 1000)
+        if (totalOnesTensHundreds >= 1000)
         {
-            thousands++;
-            onesTensHundreds = 0;
+            totalThousands++;
+            totalOnesTensHundreds = 0;
         }
         
 
-        if (thousands >= 1000)
+        if (totalThousands >= 1000)
         {
-            millions++;
-            thousands = 0;
+            totalMillions++;
+            totalThousands = 0;
        
         }
-        if (millions >= 1000)
+        if (totalMillions >= 1000)
         {
-            billions++;
-            millions = 0;
+            totalBillions++;
+            totalMillions = 0;
         }
     }
 
@@ -601,7 +895,7 @@ public class Game : MonoBehaviour
         if(currentScore >= allUpgradePrice)
         {
             currentScore -= allUpgradePrice;
-            allUpgradePrice *= 3;
+            allUpgradePrice *= 5;
             amount1Profit *= 2;
             amount1Upgrade *= 2;
             amount2Profit *= 2;
@@ -670,7 +964,7 @@ public class Game : MonoBehaviour
     public void GetReward()
     {
         currentScore = currentScore + (((amount1Profit + amount2Profit + amount3Profit + amount4Profit + amount5Profit)
-        * levelMultiplier) * UnityEngine.Random.Range(60, 120));
+        * levelMultiplier) * UnityEngine.Random.Range(30, 60));
         eventIsNow = false;
         StartCoroutine(WaitForEvent());
     }

@@ -169,16 +169,15 @@ public class Game : MonoBehaviour
     // Level system
     [Header("Level System")]
     public double level;
-    public string levelString;
+    public List<double> levelList = new List<double>();
 
     public double xp;
-    public string xpString;
+    public List<double> xpList = new List<double>();
 
     public double xpToNextLevel;
-    public string xpToNextLevelString;
+    public List<double> xpToNextLevelList = new List<double>();
 
     public double levelMultiplier;
-    public string levelMultiplierString;
 
     public Text levelText;
     public Text xpToNextLevelText;

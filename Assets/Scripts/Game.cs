@@ -10,13 +10,14 @@ using UnityEngine.UI;
 // Fix in the works fingers crossed :3
 // THIS IS ACTUALLY SO HARD BRO IM CLOSE TO GIVING UP!!!!!!
 // Lists save me...
-// Reset prefs at line 224
+// Reset prefs at line 225
 
 public class Game : MonoBehaviour
 {
     // Clicker
     [Header("Clicker")]
     public Text scoreText;
+    public List<string> scoreList = new List<string>();
     
     [Header("Current Score")]
     public double currentScore;
@@ -221,7 +222,7 @@ public class Game : MonoBehaviour
         xpToNextLevel = 50;
 
         // Reset Lines
-        PlayerPrefs.DeleteAll();
+        // PlayerPrefs.DeleteAll();
 
         // Load
 
@@ -510,26 +511,26 @@ public class Game : MonoBehaviour
         if (totalScoreList[0] >= 1000)
         {
             totalScoreList[1]++;
-            totalScoreList[0] = 0;
+            totalScoreList[0] = totalScoreList[0] - 1000;
         }
         
 
         if (totalScoreList[1] >= 1000)
         {
             totalScoreList[2]++;
-            totalScoreList[1] = 0;
-       
+            totalScoreList[1] = totalScoreList[1] - 1000;
+
         }
         if (totalScoreList[2] >= 1000)
         {
             totalScoreList[3]++;
-            totalScoreList[2] = 0;
+            totalScoreList[2] = totalScoreList[2] - 1000;
         }
 
-        if (currentScoreList[0] >= 1000)
+        if (currentScoreList[3] >= 1000)
         {
-            currentScoreList[1]++;
-            currentScoreList[0] = 0;
+            currentScoreList[4]++;
+            totalScoreList[3] = totalScoreList[3] - 1000;
         }
     }
 

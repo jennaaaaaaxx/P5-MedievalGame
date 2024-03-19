@@ -36,7 +36,6 @@ public class Plus : MonoBehaviour
         }
 
         transform.position = new Vector3(transform.position.x, transform.position.y + Time.deltaTime * speed, 0);
-
         thisText.text = "+" + Game.hitPower;
     }
 }

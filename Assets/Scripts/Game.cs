@@ -192,6 +192,14 @@ public class Game : MonoBehaviour
     [Header("Hit Effect")]
     public GameObject plusObject;
 
+    // Audio
+    AudioManager audioManager;
+
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
+
     void Start()
     {
         // Clicker
@@ -540,6 +548,9 @@ public class Game : MonoBehaviour
         totalScore += hitPower * levelMultiplier;
         totalScoreList[0] += hitPower * levelMultiplier;
         xp++;
+
+        // Audio
+        audioManager.PlaySFX(audioManager.click);
 
         // Text
         Instantiate(plusObject, transform.position, transform.rotation);

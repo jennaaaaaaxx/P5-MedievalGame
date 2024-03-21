@@ -36,6 +36,7 @@ public class Plus : MonoBehaviour
         }
 
         transform.position = new Vector3(transform.position.x, transform.position.y + Time.deltaTime * speed, 0);
-        thisText.text = "+" + Game.hitPower;
+        string plus = (Game.hitPower * Game.levelMultiplier).ToString("F2");
+        thisText.text = "£" + plus;
     }
 }

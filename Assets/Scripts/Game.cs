@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Numerics;
 using Unity.Mathematics;
 using UnityEngine;
@@ -34,6 +35,10 @@ public class Game : MonoBehaviour
     [Header("Score Increase")]
     public double scoreIncreasedPerSecond;
     public List<double> scoreIncreaseList = new List<double>();
+
+    // test
+    public Text testText;
+    public double testVar;
 
     // Shop
     [Header("Shop")]
@@ -177,7 +182,7 @@ public class Game : MonoBehaviour
     public double xpToNextLevel;
     public List<double> xpToNextLevelList = new List<double>();
 
-    public double levelMultiplier;
+    public static double levelMultiplier;
 
     public Text levelText;
     public Text xpToNextLevelText;
@@ -229,7 +234,7 @@ public class Game : MonoBehaviour
         xpToNextLevel = 50;
 
         // Reset Lines
-        // PlayerPrefs.DeleteAll();
+        PlayerPrefs.DeleteAll();
 
         // Load
 
@@ -322,11 +327,16 @@ public class Game : MonoBehaviour
         shop5Text.text = "Church: £" + shop5Price;
 
         // Amount
-        amount1Text.text = amount1 + " Houses: £" + (amount1Profit * levelMultiplier) + "/s";
-        amount2Text.text = amount2 + " Taverns: £" + (amount2Profit * levelMultiplier) + "/s";
-        amount3Text.text = amount3 + " Stables: £" + (amount3Profit * levelMultiplier) + "/s";
-        amount4Text.text = amount4 + " Bakeries: £" + (amount4Profit * levelMultiplier) + "/s";
-        amount5Text.text = amount5 + " Churches: £" + (amount5Profit * levelMultiplier) + "/s";
+        string ap1 = (amount1Profit * levelMultiplier).ToString("F2");
+        amount1Text.text = amount1 + " Houses: £" + ap1 + "/s";
+        string ap2 = (amount2Profit * levelMultiplier).ToString("F2");
+        amount2Text.text = amount2 + " Taverns: £" + ap2 + "/s";
+        string ap3 = (amount3Profit * levelMultiplier).ToString("F2");
+        amount3Text.text = amount3 + " Stables: £" + ap3 + "/s";
+        string ap4 = (amount4Profit * levelMultiplier).ToString("F2");
+        amount4Text.text = amount4 + " Bakeries: £" + ap4 + "/s";
+        string ap5 = (amount5Profit * levelMultiplier).ToString("F2");
+        amount5Text.text = amount5 + " Churches: £" + ap5 + "/s";
 
         // Upgrades
         clickUpgradeText.text = "Cost: £" + clickUpgradePrice;
@@ -565,6 +575,7 @@ public class Game : MonoBehaviour
             amount1 += 1;
             amount1Profit += (0.3f * amount1Upgrade);
             shop1Price = (int)(shop1Price * 1.2f);
+            audioManager.PlaySFX(audioManager.saw);
         }
     }
     public void ShopTavern()
@@ -575,6 +586,7 @@ public class Game : MonoBehaviour
             amount2 += 1;
             amount2Profit += (1f * amount2Upgrade);
             shop2Price = (int)(shop2Price * 1.2f);
+            audioManager.PlaySFX(audioManager.saw);
         }
     }
     public void ShopStable()
@@ -585,6 +597,7 @@ public class Game : MonoBehaviour
             amount3 += 1;
             amount3Profit += (4f * amount3Upgrade);
             shop3Price = (int)(shop3Price * 1.2f);
+            audioManager.PlaySFX(audioManager.saw);
         }
     }
     public void ShopBakery()
@@ -595,6 +608,7 @@ public class Game : MonoBehaviour
             amount4 += 1;
             amount4Profit += (20f * amount4Upgrade);
             shop4Price = (int)(shop4Price * 1.2f);
+            audioManager.PlaySFX(audioManager.saw);
         }
     }
     public void ShopChurch()
@@ -605,6 +619,7 @@ public class Game : MonoBehaviour
             amount5 += 1;
             amount5Profit += (120f * amount5Upgrade);
             shop5Price = (int)(shop5Price * 1.2f);
+            audioManager.PlaySFX(audioManager.saw);
         }
     }
 
